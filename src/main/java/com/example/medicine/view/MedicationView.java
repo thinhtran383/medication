@@ -50,11 +50,15 @@ public class MedicationView extends javax.swing.JFrame {
 
         TableHelper.setTableReadOnly(tbSupplements);
 
-        applyColorToColumn(tbSupplements, 7);
+        applyColorToColumn(tbSupplements, 8);
     }
 
     private void loadCb() {
         cbAvailability.setModel(new DefaultComboBoxModel<>(new String[]{"Available", "Out of stock", "30 days left"}));
+
+        cbStatus.setModel(new DefaultComboBoxModel<>(new String[]{"Not opened", "Opened" }));
+
+        cbStatus.setSelectedIndex(0);
     }
 
     private void loadSupplements(List<Supplement> supplements) {
@@ -65,6 +69,7 @@ public class MedicationView extends javax.swing.JFrame {
             tableModel.addRow(new Object[]{
                     supplement.getId(),
                     supplement.getMedicineName(),
+                    supplement.getStatus(),
                     supplement.getQuantity(),
                     supplement.getOpenDate(),
 
@@ -155,18 +160,20 @@ public class MedicationView extends javax.swing.JFrame {
         txtKeyword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtPerDay = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbSupplements.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Quantity", "Opened date", "Dose per day", "Dosage", "Expired date", "Availability", "Estimated days left"
+                "ID", "Name", "Status", "Quantity", "Opened date", "Dose per day", "Dosage", "Expired date", "Availability", "Estimated days left"
             }
         ));
         tbSupplements.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,18 +228,38 @@ public class MedicationView extends javax.swing.JFrame {
 
         jLabel3.setText("Name:");
 
+        jLabel5.setText("Status:");
+
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(jLabel9)
+                        .addGap(28, 28, 28)
+                        .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -253,22 +280,11 @@ public class MedicationView extends javax.swing.JFrame {
                             .addComponent(dpExpired, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(153, 153, 153))
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(239, 239, 239)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel9)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                            .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +322,11 @@ public class MedicationView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnDelete)
@@ -325,10 +345,11 @@ public class MedicationView extends javax.swing.JFrame {
         String name = txtName.getText();
         String pillPerBottle = txtQuantity.getText();
         String dosage = txtDosage.getText();
+        String status = cbStatus.getSelectedItem() == null ? "" : cbStatus.getSelectedItem().toString();
         java.sql.Date expirationDate = new java.sql.Date(dpExpired.getDate().getTime());
         String availability = cbAvailability.getSelectedItem() == null ? "" : cbAvailability.getSelectedItem().toString();
 
-        if (Validator.isNullOrEmpty(name, pillPerBottle, dosage, expirationDate, availability)) {
+        if (Validator.isNullOrEmpty(name, pillPerBottle, dosage, expirationDate, availability, status)) {
             JOptionPane.showMessageDialog(this, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
@@ -340,26 +361,56 @@ public class MedicationView extends javax.swing.JFrame {
 
 
         if (id.isEmpty()) {
-            return new Supplement(
-                    name,
-                    Integer.parseInt(pillPerBottle),
-                    0,
-                    dosage,
-                    expirationDate.toLocalDate(),
-                    availability
-            );
+            Supplement supplement = new Supplement();
+
+            supplement.setMedicineName(name);
+            supplement.setQuantity(Integer.parseInt(pillPerBottle));
+            supplement.setDosePerDay(0);
+            supplement.setDosage(dosage);
+            supplement.setExpirationDate(expirationDate.toLocalDate());
+            supplement.setAvailability(availability);
+            supplement.setStatus(status);
+
+            return supplement;
+
+
+//            return new Supplement(
+//                    name,
+//                    Integer.parseInt(pillPerBottle),
+//                    0,
+//                    dosage,
+//                    expirationDate.toLocalDate(),
+//                    availability,
+//                    status
+//            );
         }
 
-        return new Supplement(
-                Integer.parseInt(id),
-                name,
-                Integer.parseInt(pillPerBottle),
-                0,
-                dosage,
-                expirationDate.toLocalDate(),
-                availability,
-                null
-        );
+        Supplement supplement = new Supplement();
+
+        supplement.setId(Integer.parseInt(id));
+        supplement.setMedicineName(name);
+        supplement.setQuantity(Integer.parseInt(pillPerBottle));
+        supplement.setDosePerDay(Integer.parseInt(txtPerDay.getText()));
+        supplement.setDosage(dosage);
+        supplement.setExpirationDate(expirationDate.toLocalDate());
+        supplement.setAvailability(availability);
+        supplement.setStatus(status);
+
+
+        return supplement;
+
+
+//        return new Supplement(
+//                Integer.parseInt(id),
+//                name,
+//                Integer.parseInt(pillPerBottle),
+//                0,
+//                dosage,
+//                expirationDate.toLocalDate(),
+//                availability,
+//                null,
+//                status
+//        );
     }
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -431,11 +482,13 @@ public class MedicationView extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) tbSupplements.getModel();
         txtId.setText(tableModel.getValueAt(selectedRow, 0).toString());
         txtName.setText(tableModel.getValueAt(selectedRow, 1).toString());
-        txtQuantity.setText(tableModel.getValueAt(selectedRow, 2).toString());
-        txtPerDay.setText(tableModel.getValueAt(selectedRow, 4).toString());
-        txtDosage.setText(tableModel.getValueAt(selectedRow, 5).toString());
-        dpExpired.setDate(Date.from(LocalDate.parse(tableModel.getValueAt(selectedRow, 6).toString()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        cbAvailability.setSelectedItem(tableModel.getValueAt(selectedRow, 7));
+        cbStatus.setSelectedItem(tableModel.getValueAt(selectedRow, 2).toString());
+        txtQuantity.setText(tableModel.getValueAt(selectedRow, 3).toString());
+
+        txtPerDay.setText(tableModel.getValueAt(selectedRow, 5).toString());
+        txtDosage.setText(tableModel.getValueAt(selectedRow, 6).toString());
+        dpExpired.setDate(Date.from(LocalDate.parse(tableModel.getValueAt(selectedRow, 7).toString()).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        cbAvailability.setSelectedItem(tableModel.getValueAt(selectedRow, 8));
     }
 
     /**
@@ -478,11 +531,13 @@ public class MedicationView extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbAvailability;
+    private javax.swing.JComboBox<String> cbStatus;
     private com.toedter.calendar.JDateChooser dpExpired;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

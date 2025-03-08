@@ -69,8 +69,8 @@ public class PrescriptionService {
 
         String updateStatus = """
                     UPDATE Supplements 
-                    set open_date = ?
-                    WHERE open_date IS NULL
+                    set open_date = ?, status = 'Opened'
+                    WHERE open_date IS NULL and status = 'Not opened'
                       AND id = ?
                 """;
 

@@ -3,6 +3,7 @@ package com.example.medicine.service;
 import com.example.medicine.model.Supplement;
 import com.example.medicine.util.DbConnect;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class MedicationService {
@@ -22,7 +23,8 @@ public class MedicationService {
                                       WHEN s.dose_per_day = 0 THEN NULL
                                       ELSE FLOOR(s.quantity / s.dose_per_day)
                                   END AS estimated_days_left,
-                                   s.open_date
+                                   s.open_date,
+                                   s.status
                               FROM Supplements s
                               ORDER BY
                                   CASE
@@ -39,35 +41,55 @@ public class MedicationService {
     }
 
     public int save(Supplement supplement) {
+        System.out.println(supplement);
+
         if (supplement.getId() == null || !isExist(supplement.getId())) {
-            String insertSql = "INSERT INTO supplements (medicine_name, quantity, " +
-                    "dose_per_day, dosage, expired_date, availability) VALUES (?, ?, ?, ?, ?, ?)";
+            String insertSql = "INSERT INTO supplements (medicine_name, quantity, status, " +
+                    "dose_per_day, dosage, expired_date, availability) VALUES (?, ?, ?, ?, ?, ?, ?)";
             return dbConnect.executeUpdate(
                     insertSql,
                     supplement.getMedicineName(),
                     supplement.getQuantity(),
+                    supplement.getStatus(),
                     supplement.getDosePerDay(),
                     supplement.getDosage(),
                     supplement.getExpirationDate(),
                     supplement.getAvailability()
             );
         } else {
-            String updateSql = "UPDATE supplements SET medicine_name = ?, " +
+            boolean isOpened = "Opened".equalsIgnoreCase(supplement.getStatus());
+            String updateSql = "UPDATE supplements SET medicine_name = ?, status = ?, " +
                     "quantity = ?, dose_per_day = ?, dosage = ?, expired_date = ?, availability = ? " +
+                    (isOpened ? ", open_date = ? " : "") +
                     "WHERE id = ?";
-            return dbConnect.executeUpdate(
-                    updateSql,
-                    supplement.getMedicineName(),
-                    supplement.getQuantity(),
-                    supplement.getDosePerDay(),
-                    supplement.getDosage(),
-                    supplement.getExpirationDate(),
-                    supplement.getAvailability(),
-                    supplement.getId()
-            );
 
+            if (isOpened) {
+                return dbConnect.executeUpdate(
+                        updateSql,
+                        supplement.getMedicineName(),
+                        supplement.getStatus(),
+                        supplement.getQuantity(),
+                        supplement.getDosePerDay(),
+                        supplement.getDosage(),
+                        supplement.getExpirationDate(),
+                        supplement.getAvailability(),
+                        LocalDate.now(),
+                        supplement.getId()
+                );
+            } else {
+                return dbConnect.executeUpdate(
+                        updateSql,
+                        supplement.getMedicineName(),
+                        supplement.getStatus(),
+                        supplement.getQuantity(),
+                        supplement.getDosePerDay(),
+                        supplement.getDosage(),
+                        supplement.getExpirationDate(),
+                        supplement.getAvailability(),
+                        supplement.getId()
+                );
+            }
         }
-
     }
 
 

@@ -13,6 +13,7 @@ public class Supplement {
     private String availability;
     private Long estimatedDaysLeft;
     private Date openDate;
+    private String status;
 
     public Supplement() {
     }
@@ -29,7 +30,7 @@ public class Supplement {
     }
 
     public Supplement(Integer id, String medicineName,
-                      Integer quantity, Integer dosePerDay, String dosage, LocalDate expirationDate, String availability, Long estimatedDaysLeft, Date openDate) {
+                      Integer quantity, Integer dosePerDay, String dosage, LocalDate expirationDate, String availability, Long estimatedDaysLeft, Date openDate, String status) {
         this.id = id;
         this.medicineName = medicineName;
         this.quantity = quantity;
@@ -39,6 +40,7 @@ public class Supplement {
         this.availability = availability;
         this.estimatedDaysLeft = estimatedDaysLeft;
         this.openDate = openDate;
+        this.status = status;
     }
 
     public Supplement(String medicineName, Integer quantity, Integer dosePerDay, String dosage, LocalDate expirationDate, String availability) {
@@ -125,6 +127,14 @@ public class Supplement {
         this.openDate = openDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public static Supplement mapToSupplement(Object[] row) {
         Supplement supplement = new Supplement();
         supplement.setId((int) row[0]);
@@ -136,6 +146,7 @@ public class Supplement {
         supplement.setAvailability((String) row[6]);
         supplement.setEstimatedDaysLeft((Long) row[7]);
         supplement.setOpenDate((Date) row[8]);
+        supplement.setStatus((String) row[9]);
         return supplement;
     }
 
@@ -150,6 +161,8 @@ public class Supplement {
                 ", expirationDate=" + expirationDate +
                 ", availability='" + availability + '\'' +
                 ", estimatedDaysLeft=" + estimatedDaysLeft +
+                ", openDate=" + openDate +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
