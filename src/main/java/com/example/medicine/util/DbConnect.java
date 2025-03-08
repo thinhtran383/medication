@@ -8,8 +8,8 @@ public class DbConnect {
     private static DbConnect instance;
 
     private final static String jdbcUrl = "jdbc:mysql://localhost:3306/medicine_2";
-    private final static String username = "root";
-    private final static String password = "Thinh@123";
+    private final static String username = LoadEnv.get("DATABASE_USERNAME");
+    private final static String password = LoadEnv.get("DATABASE_PASSWORD");
 
     private Connection connection;
 

@@ -158,7 +158,7 @@ public class LoginView extends javax.swing.JFrame {
             UserContext.getInstance().setUsername(username);
 
             BackgroundService backgroundService = new BackgroundService();
-            backgroundService.startService();
+            backgroundService.updateSupplementQuantities();
 
 
 //            DashboardView dashboardView = new DashboardView();

@@ -1,5 +1,7 @@
 package com.example.medicine.service;
 
+import com.example.medicine.util.LoadEnv;
+
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -9,8 +11,8 @@ import javax.mail.internet.*;
 
 public class MailService {
 
-    private final String username = "thinhtran3803@gmail.com";
-    private final String password = "uuuo iprw vkfu yaxc";
+    private final String username = LoadEnv.get("EMAIL");
+    private final String password = LoadEnv.get("EMAIL_PASSWORD");
     private final Properties prop;
     private final ExecutorService executor;
 
