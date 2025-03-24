@@ -56,7 +56,8 @@ public class PatientView extends javax.swing.JFrame {
                     patient.getAge(),
                     patient.getGender(),
                     patient.getAddress(),
-                    patient.getPhone()
+                    patient.getPhone(),
+                    patient.getHealthCondition()
             });
         });
     }
@@ -91,6 +92,8 @@ public class PatientView extends javax.swing.JFrame {
         btnMedication = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtKeyword = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtHealthCodition = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,24 +128,17 @@ public class PatientView extends javax.swing.JFrame {
 
         jLabel8.setText("Phone:");
 
-
-
         tbPatients.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null},
-                        {null, null, null, null, null, null}
-                },
-                new String [] {
-                        "ID", "Name", "Age", "Gender", "Address", "Phone"
-                }
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Age", "Gender", "Address", "Phone", "Health Condition"
             }
-        });
+        ));
         tbPatients.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbPatientsMouseClicked(evt);
@@ -176,6 +172,8 @@ public class PatientView extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Health condition:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,27 +198,31 @@ public class PatientView extends javax.swing.JFrame {
                 .addComponent(btnMedication)
                 .addGap(26, 26, 26))
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(cbGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPhone)
+                            .addComponent(txtAddress)
+                            .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtHealthCodition, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +231,7 @@ public class PatientView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,7 +257,11 @@ public class PatientView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtHealthCodition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnDelete)
@@ -278,6 +284,7 @@ public class PatientView extends javax.swing.JFrame {
         String gender = cbGender.getSelectedItem() == null ? "" : cbGender.getSelectedItem().toString();
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
+        String healthCondition = txtHealthCodition.getText();
 
         if (Validator.isNullOrEmpty(name, age, gender, address, phone)) {
             JOptionPane.showMessageDialog(this, "Please fill all fields");
@@ -298,7 +305,7 @@ public class PatientView extends javax.swing.JFrame {
             return new Patient(name, Integer.parseInt(age), gender, address, phone);
         }
 
-        return new Patient(Integer.parseInt(id), name, Integer.parseInt(age), gender, address, phone);
+        return new Patient(Integer.parseInt(id), name, Integer.parseInt(age), gender, address, phone, healthCondition);
     }
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -352,18 +359,31 @@ public class PatientView extends javax.swing.JFrame {
         cbGender.setSelectedIndex(0);
         txtAddress.setText("");
         txtPhone.setText("");
+        txtHealthCodition.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void tbPatientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPatientsMouseClicked
         int row = tbPatients.getSelectedRow();
 
-        txtId.setText(tbPatients.getValueAt(row, 0).toString());
-        txtName.setText(tbPatients.getValueAt(row, 1).toString());
-        txtAge.setText(tbPatients.getValueAt(row, 2).toString());
-        cbGender.setSelectedItem(tbPatients.getValueAt(row, 3));
-        txtAddress.setText(tbPatients.getValueAt(row, 4).toString());
-        txtPhone.setText(tbPatients.getValueAt(row, 5).toString());
+        if (row >= 0) {
+            Object id = tbPatients.getValueAt(row, 0);
+            Object name = tbPatients.getValueAt(row, 1);
+            Object age = tbPatients.getValueAt(row, 2);
+            Object gender = tbPatients.getValueAt(row, 3);
+            Object address = tbPatients.getValueAt(row, 4);
+            Object phone = tbPatients.getValueAt(row, 5);
+            Object healthCondition = tbPatients.getValueAt(row, 6);
+
+            txtId.setText(id != null ? id.toString() : "");
+            txtName.setText(name != null ? name.toString() : "");
+            txtAge.setText(age != null ? age.toString() : "");
+            cbGender.setSelectedItem(gender != null ? gender.toString() : "");
+            txtAddress.setText(address != null ? address.toString() : "");
+            txtPhone.setText(phone != null ? phone.toString() : "");
+            txtHealthCodition.setText(healthCondition != null ? healthCondition.toString() : "");
+        }
     }//GEN-LAST:event_tbPatientsMouseClicked
+
 
     private void btnPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescriptionActionPerformed
         int row = tbPatients.getSelectedRow();
@@ -446,6 +466,7 @@ public class PatientView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -453,6 +474,7 @@ public class PatientView extends javax.swing.JFrame {
     private javax.swing.JTable tbPatients;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtHealthCodition;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtKeyword;
     private javax.swing.JTextField txtName;

@@ -7,17 +7,19 @@ public class Patient {
     private String gender;
     private String address;
     private String phone;
+    private String healthCondition;
     
     public Patient() {
     }
 
-    public Patient(Integer id, String name, Integer age, String gender, String address, String phone) {
+    public Patient(Integer id, String name, Integer age, String gender, String address, String phone, String healthCondition) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.address = address;
         this.phone = phone;
+        this.healthCondition = healthCondition;
     }
 
     public Patient(String name, Integer age, String gender, String address, String phone) {
@@ -26,6 +28,14 @@ public class Patient {
         this.gender = gender;
         this.address = address;
         this.phone = phone;
+    }
+
+    public String getHealthCondition() {
+        return healthCondition;
+    }
+
+    public void setHealthCondition(String healthCondition) {
+        this.healthCondition = healthCondition;
     }
 
     public Integer getAge() {
@@ -83,7 +93,8 @@ public class Patient {
                 (Integer) obj[2],
                 (String) obj[3],
                 (String) obj[4],
-                (String) obj[5]
+                (String) obj[5],
+                (String) obj[6]
         );
     }
 

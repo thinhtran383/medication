@@ -17,21 +17,24 @@ public class PatientService {
 
     public int save(Patient patient) {
         if (patient.getId() == null || !isExist(patient.getId())) {
-            String insertSql = "INSERT INTO patients (name, age, gender, address, phone) VALUES (?, ?, ?, ?, ?)";
+            String insertSql = "INSERT INTO patients (name, age, gender, address, phone, health_condition) VALUES (?,?, ?, ?, ?, ?)";
             return dbConnect.executeUpdate(insertSql,
                     patient.getName(),
                     patient.getAge(),
                     patient.getGender(),
                     patient.getAddress(),
-                    patient.getPhone());
+                    patient.getPhone(),
+                    patient.getHealthCondition()
+            );
         } else {
-            String updateSql = "UPDATE patients SET name = ?, age = ?, gender = ?, address = ?, phone = ? WHERE id = ?";
+            String updateSql = "UPDATE patients SET name = ?, age = ?, gender = ?, address = ?, phone = ?, health_condition=? WHERE id = ?";
             return dbConnect.executeUpdate(updateSql,
                     patient.getName(),
                     patient.getAge(),
                     patient.getGender(),
                     patient.getAddress(),
                     patient.getPhone(),
+                    patient.getHealthCondition(),
                     patient.getId());
         }
     }
